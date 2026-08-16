@@ -1,6 +1,6 @@
 import { createRequire } from 'node:module'
 import type { SourceMap } from 'rollup'
-import type { TransformConfig, Output as TransformResult, JscConfig } from '@swc/core'
+import type { TransformConfig, Output as TransformResult, JscConfig, JsMinifyOptions } from '@swc/core'
 import type { Plugin, UserConfig, FilterPattern } from 'vite'
 import { createFilter } from 'vite'
 
@@ -10,7 +10,7 @@ type SwcTransformResult = Omit<TransformResult, 'map'> & {
 
 type SwcTransformOptions = {
   sourcemap?: boolean | 'inline' | undefined
-  minify?: boolean
+  minify?: boolean | JsMinifyOptions
 } & TransformConfig
 
 async function transformWithSWC(code: string, id: string, options: SwcTransformOptions): Promise<SwcTransformResult> {
@@ -46,14 +46,15 @@ async function transformWithSWC(code: string, id: string, options: SwcTransformO
     minify: {
       format: {
         comments: false
-      }
+      },
+      ...(typeof minify === 'object' ? minify : {})
     }
   }
 
   const result = await swc.transform(code, {
     jsc,
     sourceMaps: sourcemap,
-    minify,
+    minify: minify && true,
     configFile: false,
     swcrc: false
   })
@@ -70,6 +71,7 @@ export type SwcOptions = {
   include?: FilterPattern
   exclude?: FilterPattern
   transformOptions?: TransformConfig
+  minifyOptions?: JsMinifyOptions
 }
 
 /**
@@ -106,7 +108,7 @@ export function swcPlugin(options: SwcOptions = {}): Plugin {
       }
       const result = await transformWithSWC(code, chunk.fileName, {
         sourcemap,
-        minify: true,
+        minify: options.minifyOptions ?? true,
         ...(options.transformOptions || {})
       })
       return {
