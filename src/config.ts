@@ -265,7 +265,6 @@ export class MainConfigFactory extends ConfigFactory<MainViteConfig> {
           electronMainConfigPresetPlugin({ root: this.options.root }),
           assetPlugin(),
           importMetaPlugin(),
-          esmShimPlugin(),
           ...configDrivenPlugins
         ]
       : [
@@ -275,7 +274,6 @@ export class MainConfigFactory extends ConfigFactory<MainViteConfig> {
           workerPlugin(),
           modulePathPlugin(this),
           importMetaPlugin(),
-          esmShimPlugin(),
           ...configDrivenPlugins
         ]
   }
