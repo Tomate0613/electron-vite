@@ -44,7 +44,8 @@
     "format": "prettier --write .",
     "lint": "eslint --cache .",
     "typecheck": "tsc --noEmit",
-    "build": "pnpm run lint && rollup -c rollup.config.ts --configPlugin typescript"
+    "build": "pnpm run lint && rollup -c rollup.config.ts --configPlugin typescript",
+    "prepare": "pnpm build"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged",
