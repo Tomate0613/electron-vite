@@ -23,7 +23,6 @@
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
   },
-  "packageManager": "pnpm@10.12.4",
   "author": "Alex Wei<https://github.com/alex8088>",
   "license": "MIT",
   "repository": {
