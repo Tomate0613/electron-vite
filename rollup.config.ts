@@ -26,8 +26,18 @@ export default defineConfig([
     plugins: [
       rm('dist', 'buildStart'),
       json(),
-      ts({ compilerOptions: { rootDir: 'src', outDir: 'dist', declaration: true, declarationDir: 'dist/types' } }),
-      resolve()
+      resolve(),
+      ts({
+        tsconfig: './tsconfig.json',
+        include: ['src/**/*.ts'],
+        filterRoot: process.cwd(),
+        compilerOptions: {
+          rootDir: 'src',
+          outDir: 'dist',
+          declaration: true,
+          declarationDir: 'dist/types'
+        }
+      })
     ],
     treeshake: {
       moduleSideEffects: false
