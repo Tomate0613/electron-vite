@@ -16,9 +16,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitAny": false,
-    "noImplicitReturns": true,
-    "rootDir": "src",
-    "outDir": "dist"
+    "noImplicitReturns": true
   },
   "include": [
     "src"
