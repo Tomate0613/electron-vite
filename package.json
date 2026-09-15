@@ -47,7 +47,7 @@
     "format": "prettier --write .",
     "lint": "eslint --cache .",
     "typecheck": "tsc --noEmit",
-    "build": "pnpm run lint && rollup -c rollup.config.ts --configPlugin typescript",
+    "build": "pnpm run lint && tsc",
     "prepare": "pnpm build"
   },
   "simple-git-hooks": {
@@ -74,9 +74,6 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^16.0.3",
-    "@rollup/plugin-typescript": "^12.3.0",
     "@swc/core": "^1.16.2",
     "@types/babel__core": "^7.20.5",
     "@types/node": "^26.5.1",
