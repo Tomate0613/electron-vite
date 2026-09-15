@@ -2,7 +2,7 @@ import { cac } from 'cac'
 import colors from 'picocolors'
 import { type LogLevel, createLogger } from 'vite'
 import type { InlineConfig } from './config'
-import { version } from '../package.json'
+import { version } from '../package.json' with { type: 'json' }
 
 const cli = cac('electron-vite')
 
