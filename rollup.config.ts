@@ -9,7 +9,9 @@ import rm from 'rollup-plugin-rm'
 const require = createRequire(import.meta.url)
 const pkg = require('./package.json')
 
-const external = [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})]
+const dependencies = [...Object.keys(pkg.dependencies ?? {}), ...Object.keys(pkg.peerDependencies ?? {})]
+
+const external = (id: string): boolean => dependencies.some(dep => id === dep || id.startsWith(`${dep}/`))
 
 export default defineConfig([
   {
@@ -45,8 +47,8 @@ export default defineConfig([
   },
   {
     input: 'dist/types/index.d.ts',
-    external: ['vite'],
     output: [{ file: pkg.types, format: 'es' }],
+    external,
     plugins: [dts(), rm('dist/types', 'buildEnd')]
   }
 ])
